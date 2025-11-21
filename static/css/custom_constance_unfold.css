@@ -1,0 +1,18 @@
+/* Increase vertical spacing for a cleaner, "airy" look */
+table tr td, 
+table tr th {
+    padding-top: 1.5rem !important;    /* Top spacing */
+    padding-bottom: 1.5rem !important; /* Bottom spacing */
+}
+
+/* Increase horizontal spacing to separate columns */
+table tr td, 
+table tr th {
+    padding-left: 2rem !important;     /* Left spacing */
+    padding-right: 2rem !important;    /* Right spacing */
+}
+
+/* Optional: Add a slight hover effect on rows for better readability */
+table tr:hover td {
+    background-color: rgba(255, 255, 255, 0.02);
+}

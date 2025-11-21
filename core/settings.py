@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'tailwind',
     'theme',
+    'constance',
+    'constance.backends.database',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -47,6 +49,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
+
+from core.constance_config import *
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -73,6 +79,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'constance.context_processors.config',
             ],
         },
     },
@@ -152,6 +159,18 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'authentication.User'
 
+def constance_custom_style(request):
+    """
+    Conditionally injects CSS only for the Constance configuration page.
+    """
+    # Verify if request exists and if the URL matches the Constance config page
+    # Adjust '/constance/config/' if your admin URL structure is customized
+    if request and "/constance/config/" in request.path:
+        return static("css/custom_constance_unfold.css")
+    
+    # Return None if we are not on the specific page (no CSS injected)
+    return None
+
 UNFOLD = {
     "SITE_TITLE": "Foxvoid",
     "SITE_HEADER": "Foxvoid",
@@ -205,10 +224,19 @@ UNFOLD = {
                         # 'rosetta-home' is the name of the view provided by django-rosetta
                         "link": reverse_lazy("rosetta-old-home-redirect"), 
                     },
+                    {
+                        "title": _("Global Config"),
+                        "icon": "tune",
+                        "link": reverse_lazy("admin:constance_config_changelist"),
+                        "permission": lambda request: request.user.is_superuser
+                    }
                 ],
             },
         ]
-    }
+    },
+    "STYLES": [
+        constance_custom_style
+    ],
 }
 
 MODELTRANSLATION_DEFAULT_LANGUAGE = 'en'

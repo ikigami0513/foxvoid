@@ -183,6 +183,20 @@ asgiref = ">=3.6"
 django = ">=4.2"
 
 [[package]]
+name = "django-constance"
+version = "4.3.4"
+description = "Django live settings with pluggable backends, including Redis."
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "django_constance-4.3.4-py3-none-any.whl", hash = "sha256:598f8c967a675fe2c7fe3688510ac8302e1b6df2141d01b8d29577532a8241db"},
+    {file = "django_constance-4.3.4.tar.gz", hash = "sha256:30d1b325f636177c708cce63abbde7015593f5c60b2bc0b0e2eebe8c36e2ce59"},
+]
+
+[package.extras]
+redis = ["redis"]
+
+[[package]]
 name = "django-countries"
 version = "8.1.1"
 description = "Provides a country field for Django models."
@@ -547,4 +561,4 @@ zstd = ["zstandard (>=0.18.0)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.13"
-content-hash = "2738a322415cdf3a457a8e5d2c68ff389f8618e9a13f77e04edd0fa2919d04bb"
+content-hash = "f3cafec8ef89b7496d87cd1806d8783692723eb68c0edcd8bd8d08c014df0b7f"
